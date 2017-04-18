@@ -1,0 +1,215 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/gulpjs/vinyl#readme"
+
+    >vinyl (v2.0.2)</a>
+</h1>
+<h4>Virtual file format.</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.vinyl">module vinyl</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.vinyl.vinyl">
+            function <span class="apidocSignatureSpan"></span>vinyl
+            <span class="apidocSignatureSpan">(file)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.vinyl.isCustomProp">
+            function <span class="apidocSignatureSpan">vinyl.</span>isCustomProp
+            <span class="apidocSignatureSpan">(key)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.vinyl.isVinyl">
+            function <span class="apidocSignatureSpan">vinyl.</span>isVinyl
+            <span class="apidocSignatureSpan">(file)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.vinyl" id="apidoc.module.vinyl">module vinyl</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.vinyl.vinyl" id="apidoc.element.vinyl.vinyl">
+        function <span class="apidocSignatureSpan"></span>vinyl
+        <span class="apidocSignatureSpan">(file)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function File(file) {
+  var self = this;
+
+  if (!file) {
+    file = {};
+  }
+
+  // Stat = files stats object
+  this.stat = file.stat || null;
+
+  // Contents = stream, buffer, or null if not read
+  this.contents = file.contents || null;
+
+  // Replay path history to ensure proper normalization and trailing sep
+  var history = Array.prototype.slice.call(file.history || []);
+  if (file.path) {
+    history.push(file.path);
+  }
+  this.history = [];
+  history.forEach(function(path) {
+    self.path = path;
+  });
+
+  this.cwd = file.cwd || process.cwd();
+  this.base = file.base;
+
+  this._isVinyl = true;
+
+  this._symlink = null;
+
+  // Set custom properties
+  Object.keys(file).forEach(function(key) {
+    if (self.constructor.isCustomProp(key)) {
+      self[key] = file[key];
+    }
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.vinyl.isCustomProp" id="apidoc.element.vinyl.isCustomProp">
+        function <span class="apidocSignatureSpan">vinyl.</span>isCustomProp
+        <span class="apidocSignatureSpan">(key)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">isCustomProp = function (key) {
+  return builtInFields.indexOf(key) === -1;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var file = new Vinyl();
+var notAFile = {};
+
+Vinyl.isVinyl(file); // true
+Vinyl.isVinyl(notAFile); // false
+```
+
+### `Vinyl.<span class="apidocCodeKeywordSpan">isCustomProp</span>(property)`
+
+Static method used by Vinyl when setting values inside the constructor or when copying properties in `file.clone()`.
+
+Takes a string `property` and returns `true` if the property is not used internally, otherwise returns `false`.
+
+This method is usefuly for inheritting from the Vinyl constructor. Read more in [Extending Vinyl][extending-vinyl].
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.vinyl.isVinyl" id="apidoc.element.vinyl.isVinyl">
+        function <span class="apidocSignatureSpan">vinyl.</span>isVinyl
+        <span class="apidocSignatureSpan">(file)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">isVinyl = function (file) {
+  return (file &#x26;&#x26; file._isVinyl === true) || false;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+Gets and sets the path where the file points to if it&#x27;s a symbolic link. Will always be normalized and have trailing separators
+ removed.
+
+Throws when set to any value other than a string.
+
+Type: `String`
+
+### `Vinyl.<span class="apidocCodeKeywordSpan">isVinyl</span>(file)`
+
+Static method used for checking if an object is a Vinyl file. Use this method instead of `instanceof`.
+
+Takes an object and returns `true` if it is a Vinyl file, otherwise returns `false`.
+
+__Note: This method uses an internal flag that some older versions of Vinyl didn&#x27;t expose.__
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>

@@ -156,20 +156,21 @@
   return builtInFields.indexOf(key) === -1;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-var file = new Vinyl();
-var notAFile = {};
 
-Vinyl.isVinyl(file); // true
-Vinyl.isVinyl(notAFile); // false
-```
+this._isVinyl = true;
 
-### `Vinyl.<span class="apidocCodeKeywordSpan">isCustomProp</span>(property)`
+this._symlink = null;
 
-Static method used by Vinyl when setting values inside the constructor or when copying properties in `file.clone()`.
+// Set custom properties
+Object.keys(file).forEach(function(key) {
+  if (self.constructor.<span class="apidocCodeKeywordSpan">isCustomProp</span>(key)) {
+    self[key] = file[key];
+  }
+});
+}
 
-Takes a string `property` and returns `true` if the property is not used internally, otherwise returns `false`.
-
-This method is usefuly for inheritting from the Vinyl constructor. Read more in [Extending Vinyl][extending-vinyl].
+File.prototype.isBuffer = function() {
+return isBuffer(this.contents);
 ...</pre></li>
     </ul>
 

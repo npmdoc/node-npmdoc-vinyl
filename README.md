@@ -1,6 +1,6 @@
 # npmdoc-vinyl
 
-#### api documentation for  [vinyl (v2.0.2)](https://github.com/gulpjs/vinyl#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-vinyl.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-vinyl) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-vinyl.svg)](https://travis-ci.org/npmdoc/node-npmdoc-vinyl)
+#### basic api documentation for  [vinyl (v2.0.2)](https://github.com/gulpjs/vinyl#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-vinyl.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-vinyl) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-vinyl.svg)](https://travis-ci.org/npmdoc/node-npmdoc-vinyl)
 
 #### Virtual file format.
 
@@ -106,7 +106,8 @@
         "pretest": "npm run lint",
         "test": "mocha --async-only"
     },
-    "version": "2.0.2"
+    "version": "2.0.2",
+    "bin": {}
 }
 ```
 
